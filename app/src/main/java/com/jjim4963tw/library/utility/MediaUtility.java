@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.content.FileProvider;
 import androidx.core.os.EnvironmentCompat;
 
@@ -21,6 +22,8 @@ public class MediaUtility {
 
     public static int REQUEST_CAMERA_CODE = 0;
     public static int REQUEST_VIDEO_CODE = 1;
+    public static int REQUEST_FILE_CODE = 2;
+    public static int REQUEST_FOLDER_CODE = 3;
 
     public static Uri mediaPathUri;
 
@@ -50,6 +53,7 @@ public class MediaUtility {
         }
     }
 
+    // used MediaStore to create media file
     private static Uri getStorageMediaPath(Activity activity, int type) {
         File mediaFile;
         Uri mediaUri = null;
@@ -106,5 +110,32 @@ public class MediaUtility {
             return null;
         }
         return tempFile;
+    }
+
+    // Storage Access Framework
+    public static void selectStorageFilePath(Activity activity) {
+        Intent intent = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        } else {
+            intent = new Intent(Intent.ACTION_GET_CONTENT);
+        }
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("*/*");
+        activity.startActivityForResult(intent, REQUEST_FILE_CODE);
+    }
+
+    // Storage Access Framework
+    public static void selectStorageFolderPath(Activity activity) {
+        Intent intent = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        } else {
+            intent = new Intent(Intent.ACTION_GET_CONTENT);
+        }
+        activity.startActivityForResult(intent, REQUEST_FOLDER_CODE);
     }
 }
