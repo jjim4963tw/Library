@@ -14,6 +14,7 @@ import com.jjim4963tw.library.utility.PermissionUtility;
 import com.jjim4963tw.library.utility.StorageUtility;
 
 public class MainActivity extends AppCompatActivity {
+    private PermissionUtility permissionUtility;
     private TextView textView;
 
     @Override
@@ -23,38 +24,45 @@ public class MainActivity extends AppCompatActivity {
 
         textView = findViewById(R.id.textView);
 
-        PermissionUtility.requestPermissions(this, PermissionUtility.storagePermission, PermissionUtility.REQUEST_CODE);
+        showExternalStorageIndex();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PermissionUtility.REQUEST_CODE) {
-            for (String permission : permissions) {
-                if (!PermissionUtility.hasPermission(this, permission)) {
-                    Snackbar.make(findViewById(R.id.textView), "This is explanation: Please give us permission", Snackbar.LENGTH_LONG)
-                            .setAction("OK", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    PermissionUtility.goAppSettingPage(MainActivity.this);
-                                }
-                            }).show();
-                } else {
-                    showExternalStorageIndex();
-                }
-            }
+            permissionUtility.requestResult(requestCode, permissions, grantResults);
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-
     }
 
     private void showExternalStorageIndex() {
-        String text = String.format("getExternalCacheDir : %s \r\n getExternalDataDir (Null) : %s",
-                StorageUtility.getExternalCacheDir(this),
-                StorageUtility.getExternalDataDir(this, null)
+        permissionUtility = new PermissionUtility() {
+            @Override
+            protected void requestPermissionComplete() {
+                super.requestPermissionComplete();
+                String text = String.format("getExternalCacheDir : %s \r\n getExternalDataDir (Null) : %s \r\n" +
+                                "getInternalCacheDir : %s",
+                        StorageUtility.getExternalCacheDir(MainActivity.this),
+                        StorageUtility.getExternalDataDir(MainActivity.this, null),
+                        StorageUtility.getInternalCacheDir(MainActivity.this)
                 );
 
-        textView.setText(text);
+                textView.setText(text);
+            }
 
+            @Override
+            protected void requestPermissionFailed() {
+                super.requestPermissionFailed();
+                Snackbar.make(findViewById(R.id.textView), "This is explanation: Please give us permission", Snackbar.LENGTH_LONG)
+                        .setAction("OK", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                PermissionUtility.goAppSettingPage(MainActivity.this);
+                            }
+                        }).show();
+            }
+        };
+        permissionUtility.requestPermissions(this, PermissionUtility.storagePermission, PermissionUtility.REQUEST_CODE);
     }
 }
