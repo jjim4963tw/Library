@@ -46,13 +46,6 @@ public class PermissionUtility {
         return false;
     }
 
-    public static boolean shouldAskForPermission(Activity activity, String permission) {
-        if (needRequestPermissions()) {
-            return !(hasPermission(activity, permission) && shouldShowRational(activity, permission));
-        }
-        return false;
-    }
-
     public static void goAppSettingPage(Activity activity) {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
                 Uri.fromParts("package", activity.getPackageName(), null));
