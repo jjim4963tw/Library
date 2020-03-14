@@ -1,4 +1,4 @@
-package com.jjim4963tw.library;
+package com.jjim4963tw.library.layout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,13 +8,13 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.jjim4963tw.library.R;
 import com.jjim4963tw.library.utility.MediaUtility;
 import com.jjim4963tw.library.utility.PermissionUtility;
 import com.jjim4963tw.library.utility.StorageUtility;
@@ -133,18 +133,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == MediaUtility.REQUEST_MEDIA_CODE) {
-            if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == MediaUtility.REQUEST_CAMERA_CODE) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     imageView.setImageURI(MediaUtility.mediaPathUri);
                 } else {
                     // 使用图片路径加载
                     imageView.setImageBitmap(BitmapFactory.decodeFile(MediaUtility.mediaPathUri.toString()));
                 }
-            } else {
-                Toast.makeText(this, "取消", Toast.LENGTH_LONG).show();
+            } else if (requestCode == MediaUtility.REQUEST_VIDEO_CODE) {
+                Intent intent = new Intent(this, VideoPlayerActivity.class);
+                intent.putExtra("video_uri", MediaUtility.mediaPathUri.toString());
+                startActivity(intent);
             }
+        } else {
+            Toast.makeText(this, "取消", Toast.LENGTH_LONG).show();
         }
     }
     //endregion
