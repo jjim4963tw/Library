@@ -22,10 +22,7 @@ import com.jjim4963tw.library.utility.MediaUtility;
 import com.jjim4963tw.library.utility.PermissionUtility;
 import com.jjim4963tw.library.utility.StorageUtility;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-
-public class MainActivity extends AppCompatActivity {
+public class StorageAndMediaActivity extends AppCompatActivity {
     private PermissionUtility permissionUtility;
 
     private TextView textView;
@@ -34,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_storage_and_media);
 
         initUI();
     }
@@ -58,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
                 super.requestPermissionComplete();
                 String text = String.format("getExternalCacheDir : %s \r\n getExternalDataDir (Null) : %s \r\n" +
                                 "getInternalCacheDir : %s",
-                        StorageUtility.getExternalCacheDir(MainActivity.this),
-                        StorageUtility.getExternalFileDir(MainActivity.this, null),
-                        StorageUtility.getInternalCacheDir(MainActivity.this)
+                        StorageUtility.getExternalCacheDir(StorageAndMediaActivity.this),
+                        StorageUtility.getExternalFileDir(StorageAndMediaActivity.this, null),
+                        StorageUtility.getInternalCacheDir(StorageAndMediaActivity.this)
                 );
 
                 textView.setText(text);
@@ -73,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("OK", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                PermissionUtility.goAppSettingPage(MainActivity.this);
+                                PermissionUtility.goAppSettingPage(StorageAndMediaActivity.this);
                             }
                         }).show();
             }
@@ -99,9 +96,9 @@ public class MainActivity extends AppCompatActivity {
                 super.requestPermissionComplete();
 
                 if (type == 0) {
-                    MediaUtility.requestCamera(MainActivity.this);
+                    MediaUtility.requestCamera(StorageAndMediaActivity.this);
                 } else if (type == 1){
-                    MediaUtility.requestVideo(MainActivity.this);
+                    MediaUtility.requestVideo(StorageAndMediaActivity.this);
                 }
             }
 
@@ -112,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("OK", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                PermissionUtility.goAppSettingPage(MainActivity.this);
+                                PermissionUtility.goAppSettingPage(StorageAndMediaActivity.this);
                             }
                         }).show();
             }
