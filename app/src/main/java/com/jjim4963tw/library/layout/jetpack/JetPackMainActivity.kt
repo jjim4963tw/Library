@@ -24,9 +24,12 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 class JetPackMainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_jet_pack)
+
+        lifecycle.addObserver(LifeCycleObserver())
 
         setKtxCollectionArray()
     }
