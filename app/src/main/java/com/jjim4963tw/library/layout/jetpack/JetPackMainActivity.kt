@@ -1,9 +1,11 @@
 package com.jjim4963tw.library.layout.jetpack
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import androidx.collection.arraySetOf
 import androidx.core.content.edit
@@ -32,6 +34,18 @@ class JetPackMainActivity : AppCompatActivity() {
         lifecycle.addObserver(LifeCycleObserver())
 
         setKtxCollectionArray()
+    }
+
+    fun goLifeCycleActivity(view: View) {
+        Intent(this, LifeCycleActivity::class.java).run {
+            startActivity(this)
+        }
+    }
+
+    fun goDataStoreActivity(view: View) {
+        Intent(this, DataStoreActivity::class.java).run {
+            startActivity(this)
+        }
     }
 
     private fun putKtxSharedPreferencesValueFunction() {
