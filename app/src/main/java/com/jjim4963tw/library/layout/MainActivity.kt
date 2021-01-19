@@ -5,12 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
-import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
-import com.google.android.play.core.tasks.OnCompleteListener
-import com.google.android.play.core.tasks.Task
 import com.jjim4963tw.library.R
 import com.jjim4963tw.library.databinding.ActivityMainBinding
 import com.jjim4963tw.library.layout.jetpack.JetPackMainActivity

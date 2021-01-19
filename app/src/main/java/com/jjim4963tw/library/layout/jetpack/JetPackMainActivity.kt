@@ -48,6 +48,19 @@ class JetPackMainActivity : AppCompatActivity() {
         }
     }
 
+    fun goCameraXActivity(view: View) {
+        Intent(this, CameraXActivity::class.java).run {
+            startActivity(this)
+        }
+    }
+
+    fun goFingerBiometricActivity(view: View) {
+        Intent(this, FingerBiometricActivity::class.java).run {
+            startActivity(this)
+        }
+    }
+
+
     private fun putKtxSharedPreferencesValueFunction() {
         getSharedPreferences("sharepref", MODE_PRIVATE).edit {
             putBoolean("key", false)

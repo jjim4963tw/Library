@@ -25,6 +25,10 @@
         <activity android:name=".layout.StorageAndMediaActivity" />
         <activity android:name=".layout.VideoPlayerActivity" />
         <activity android:name=".layout.jetpack.JetPackMainActivity" />
+        <activity android:name=".layout.jetpack.CameraXActivity" />
+        <activity android:name=".layout.jetpack.FingerBiometricActivity" />
+        <activity android:name=".layout.jetpack.LifeCycleActivity" />
+        <activity android:name=".layout.jetpack.DataStoreActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

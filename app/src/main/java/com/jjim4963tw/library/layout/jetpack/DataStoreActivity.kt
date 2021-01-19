@@ -2,8 +2,9 @@ package com.jjim4963tw.library.layout.jetpack
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.datastore.DataStore
+import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.*
+import androidx.datastore.preferences.core.*
 import androidx.lifecycle.lifecycleScope
 import com.jjim4963tw.library.R
 import kotlinx.coroutines.flow.Flow
@@ -13,6 +14,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.io.IOException
+
 
 class DataStoreActivity : AppCompatActivity() {
 
@@ -37,14 +39,14 @@ class DataStoreActivity : AppCompatActivity() {
 
     private suspend fun modifyStringValue() {
         // set key and value type
-        val KEY_USERID = preferencesKey<String>("user_id")
+        val KEY_USERID = stringPreferencesKey("user_id")
 
         // read value for key
         dataStore.data.map {
             it[KEY_USERID] ?: ""
         }
 
-        dataStore.edit {setting ->
+        dataStore.edit { setting ->
             // get DataStore value
             val userID = setting[KEY_USERID] ?: ""
 
@@ -55,14 +57,14 @@ class DataStoreActivity : AppCompatActivity() {
 
     private suspend fun modifyIntValue() {
         // set key and value type
-        val KEY_YEARS = preferencesKey<Int>("years")
+        val KEY_YEARS = intPreferencesKey("years")
 
         // read value for key
         dataStore.data.map {
             it[KEY_YEARS] ?: 0
         }
 
-        dataStore.edit {setting ->
+        dataStore.edit { setting ->
             // get DataStore value
             val userYears = setting[KEY_YEARS] ?: 0
 
@@ -76,7 +78,7 @@ class DataStoreActivity : AppCompatActivity() {
     }
 
     private suspend fun usedFlowDataStore() {
-        val KEY_DARK_MODE = preferencesKey<Boolean>("is_dark_mode")
+        val KEY_DARK_MODE = booleanPreferencesKey("is_dark_mode")
 
         val uiModeFlow: Flow<UIMode> = dataStore.data
                 .catch {
@@ -87,8 +89,7 @@ class DataStoreActivity : AppCompatActivity() {
                         throw it
                     }
                 }.map {
-                    val isDarkMode = it[KEY_DARK_MODE] ?: false
-                    when (isDarkMode) {
+                    when (it[KEY_DARK_MODE] ?: false) {
                         true -> UIMode.DARK
                         false -> UIMode.LIGHT
                     }
