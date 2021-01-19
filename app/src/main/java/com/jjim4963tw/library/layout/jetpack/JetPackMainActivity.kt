@@ -12,18 +12,18 @@ import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.navArgs
-import androidx.work.CoroutineWorker
-import androidx.work.WorkManager
-import androidx.work.WorkerParameters
+import androidx.work.*
 import com.jjim4963tw.library.R
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
 class JetPackMainActivity : AppCompatActivity() {
 
@@ -56,6 +56,12 @@ class JetPackMainActivity : AppCompatActivity() {
 
     fun goFingerBiometricActivity(view: View) {
         Intent(this, FingerBiometricActivity::class.java).run {
+            startActivity(this)
+        }
+    }
+
+    fun goDataBindingAndLiveDataActivity(view: View) {
+        Intent(this, LiveDataAndDataBindingActivity::class.java).run {
             startActivity(this)
         }
     }

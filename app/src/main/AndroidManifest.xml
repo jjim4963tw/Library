@@ -14,21 +14,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".layout.jetpack.DataStoreActivity"></activity>
+
         <activity android:name=".layout.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".layout.StorageAndMediaActivity" />
         <activity android:name=".layout.VideoPlayerActivity" />
         <activity android:name=".layout.jetpack.JetPackMainActivity" />
         <activity android:name=".layout.jetpack.CameraXActivity" />
         <activity android:name=".layout.jetpack.FingerBiometricActivity" />
-        <activity android:name=".layout.jetpack.LifeCycleActivity" />
         <activity android:name=".layout.jetpack.DataStoreActivity" />
+        <activity android:name=".layout.jetpack.LifeCycleActivity" />
+        <activity android:name=".layout.jetpack.LiveDataAndDataBindingActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
