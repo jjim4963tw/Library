@@ -18,14 +18,19 @@
         <activity android:name=".layout.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".layout.StorageAndMediaActivity" />
-        <activity android:name=".layout.VideoPlayerActivity" />
-
+        <activity android:name=".layout.media.StorageAndMediaActivity" />
+        <activity android:name=".layout.media.VideoPlayerActivity" />
+        <activity android:name=".layout.jetpack.JetPackMainActivity" />
+        <activity android:name=".layout.jetpack.CameraXActivity" />
+        <activity android:name=".layout.jetpack.FingerBiometricActivity" />
+        <activity android:name=".layout.jetpack.DataStoreActivity" />
+        <activity android:name=".layout.jetpack.LifeCycleActivity" />
+        <activity android:name=".layout.jetpack.LiveDataAndDataBindingActivity" />
+        <activity android:name=".layout.RxJavaActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -37,4 +42,5 @@
                 android:resource="@xml/file_provider_path" />
         </provider>
     </application>
+
 </manifest>

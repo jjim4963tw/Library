@@ -1,4 +1,4 @@
-package com.jjim4963tw.library.layout;
+package com.jjim4963tw.library.layout.media;
 
 import android.net.Uri;
 import android.os.Bundle;
