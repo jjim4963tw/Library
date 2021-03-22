@@ -1,4 +1,4 @@
-package com.jjim4963tw.library.layout;
+package com.jjim4963tw.library.layout.media;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

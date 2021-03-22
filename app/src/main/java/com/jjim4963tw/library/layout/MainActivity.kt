@@ -11,6 +11,7 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import com.jjim4963tw.library.R
 import com.jjim4963tw.library.databinding.ActivityMainBinding
 import com.jjim4963tw.library.layout.jetpack.JetPackMainActivity
+import com.jjim4963tw.library.layout.media.StorageAndMediaActivity
 
 class MainActivity : AppCompatActivity() {
     private val REQUEST_CODE_UPDATE = 9001
@@ -50,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun openJerPackPage(view: View) {
+    fun openJetpackPage(view: View) {
         Intent(this, JetPackMainActivity::class.java).run {
             startActivity(this)
         }

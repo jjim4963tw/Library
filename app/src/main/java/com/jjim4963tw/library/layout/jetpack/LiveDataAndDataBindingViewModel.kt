@@ -21,3 +21,7 @@ class LiveDataAndDataBindingViewModel : ViewModel() {
         isMan.postValue(false)
     }
 }
+
+interface Observer<T> {
+    fun onChanged(t: T)
+}
