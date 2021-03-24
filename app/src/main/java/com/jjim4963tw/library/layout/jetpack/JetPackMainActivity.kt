@@ -90,7 +90,7 @@ class JetPackMainActivity : AppCompatActivity() {
     private fun setKtxFragmentFunction() {
         supportFragmentManager.commit {
             addToBackStack("Tag")
-            setCustomAnimations(R.anim.fragment_open_enter, R.anim.fragment_close_exit)
+            setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim)
             add(Fragment(), "...")
         }
     }

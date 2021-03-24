@@ -56,4 +56,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(this)
         }
     }
+
+    fun openRxJavaPage(view: View) {
+        Intent(this, RxJavaActivity::class.java).run {
+            startActivity(this)
+        }
+    }
 }

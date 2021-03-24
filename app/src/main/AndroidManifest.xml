@@ -30,6 +30,7 @@
         <activity android:name=".layout.jetpack.DataStoreActivity" />
         <activity android:name=".layout.jetpack.LifeCycleActivity" />
         <activity android:name=".layout.jetpack.LiveDataAndDataBindingActivity" />
+        <activity android:name=".layout.jetpack.ThreadActivity" />
         <activity android:name=".layout.RxJavaActivity" />
 
         <provider
