@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -31,7 +32,8 @@
         <activity android:name=".layout.jetpack.LifeCycleActivity" />
         <activity android:name=".layout.jetpack.LiveDataAndDataBindingActivity" />
         <activity android:name=".layout.jetpack.ThreadActivity" />
-        <activity android:name=".layout.RxJavaActivity" />
+        <activity android:name=".layout.library.RxJavaActivity" />
+        <activity android:name=".layout.library.RetrofitActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

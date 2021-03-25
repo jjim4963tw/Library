@@ -11,6 +11,8 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import com.jjim4963tw.library.R
 import com.jjim4963tw.library.databinding.ActivityMainBinding
 import com.jjim4963tw.library.layout.jetpack.JetPackMainActivity
+import com.jjim4963tw.library.layout.library.RetrofitActivity
+import com.jjim4963tw.library.layout.library.RxJavaActivity
 import com.jjim4963tw.library.layout.media.StorageAndMediaActivity
 
 class MainActivity : AppCompatActivity() {
@@ -62,4 +64,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(this)
         }
     }
+
+    fun openRetrofitPage(view: View) {
+        Intent(this, RetrofitActivity::class.java).run {
+            startActivity(this)
+        }
+    }
+
 }
