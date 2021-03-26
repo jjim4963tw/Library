@@ -64,6 +64,7 @@ dependencies {
     implementation 'androidx.camera:camera-lifecycle:1.1.0-alpha02'
     implementation 'androidx.camera:camera-view:1.0.0-alpha22'
     implementation 'androidx.biometric:biometric:1.1.0'
+    implementation 'androidx.preference:preference-ktx:1.1.1'
 
     // RxJava
     implementation 'io.reactivex.rxjava3:rxjava:3.0.11'

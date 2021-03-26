@@ -40,9 +40,17 @@ class DataStoreActivity : AppCompatActivity() {
         val KEY_USERID = stringPreferencesKey("user_id")
 
         // read value for key
-        dataStore.data.map {
-            it[KEY_USERID] ?: ""
-        }
+        dataStore.data
+                .catch {
+                    if (it is IOException) {
+                        emit(emptyPreferences())
+                    } else {
+                        throw it
+                    }
+                }
+                .map {
+                    it[KEY_USERID] ?: ""
+                }
 
         dataStore.edit { setting ->
             // get DataStore value
