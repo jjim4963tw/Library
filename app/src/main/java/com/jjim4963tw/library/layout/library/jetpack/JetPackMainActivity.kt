@@ -1,4 +1,4 @@
-package com.jjim4963tw.library.layout.jetpack
+package com.jjim4963tw.library.layout.library.jetpack
 
 import android.content.Context
 import android.content.Intent
@@ -6,24 +6,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import androidx.collection.arraySetOf
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.navArgs
 import androidx.work.*
 import com.jjim4963tw.library.R
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 
 class JetPackMainActivity : AppCompatActivity() {
 

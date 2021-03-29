@@ -1,4 +1,4 @@
-package com.jjim4963tw.library.layout.jetpack
+package com.jjim4963tw.library.layout.library.jetpack
 
 import android.os.Bundle
 import androidx.activity.viewModels

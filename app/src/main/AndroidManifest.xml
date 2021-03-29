@@ -25,13 +25,13 @@
 
         <activity android:name=".layout.media.StorageAndMediaActivity" />
         <activity android:name=".layout.media.VideoPlayerActivity" />
-        <activity android:name=".layout.jetpack.JetPackMainActivity" />
-        <activity android:name=".layout.jetpack.CameraXActivity" />
-        <activity android:name=".layout.jetpack.FingerBiometricActivity" />
-        <activity android:name=".layout.jetpack.DataStoreActivity" />
-        <activity android:name=".layout.jetpack.LifeCycleActivity" />
-        <activity android:name=".layout.jetpack.LiveDataAndDataBindingActivity" />
-        <activity android:name=".layout.jetpack.ThreadActivity" />
+        <activity android:name="com.jjim4963tw.library.layout.library.jetpack.JetPackMainActivity" />
+        <activity android:name="com.jjim4963tw.library.layout.library.jetpack.CameraXActivity" />
+        <activity android:name="com.jjim4963tw.library.layout.library.jetpack.FingerBiometricActivity" />
+        <activity android:name="com.jjim4963tw.library.layout.library.jetpack.DataStoreActivity" />
+        <activity android:name="com.jjim4963tw.library.layout.library.jetpack.LifeCycleActivity" />
+        <activity android:name="com.jjim4963tw.library.layout.library.jetpack.LiveDataAndDataBindingActivity" />
+        <activity android:name="com.jjim4963tw.library.layout.library.jetpack.ThreadActivity" />
         <activity android:name=".layout.library.RxJavaActivity" />
         <activity android:name=".layout.library.RetrofitActivity" />
         <activity android:name=".layout.library.DaggerActivity" />
