@@ -34,6 +34,7 @@
         <activity android:name=".layout.jetpack.ThreadActivity" />
         <activity android:name=".layout.library.RxJavaActivity" />
         <activity android:name=".layout.library.RetrofitActivity" />
+        <activity android:name=".layout.library.DaggerActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
