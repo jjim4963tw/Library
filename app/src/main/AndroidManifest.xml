@@ -23,26 +23,27 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".layout.media.StorageAndMediaActivity" />
-        <activity android:name=".layout.media.VideoPlayerActivity" />
-        <activity android:name="com.jjim4963tw.library.layout.library.jetpack.JetPackMainActivity" />
-        <activity android:name="com.jjim4963tw.library.layout.library.jetpack.CameraXActivity" />
-        <activity android:name="com.jjim4963tw.library.layout.library.jetpack.FingerBiometricActivity" />
-        <activity android:name="com.jjim4963tw.library.layout.library.jetpack.DataStoreActivity" />
-        <activity android:name="com.jjim4963tw.library.layout.library.jetpack.LifeCycleActivity" />
-        <activity android:name="com.jjim4963tw.library.layout.library.jetpack.LiveDataAndDataBindingActivity" />
-        <activity android:name="com.jjim4963tw.library.layout.library.jetpack.ThreadActivity" />
+        <activity android:name=".layout.library.jetpack.JetPackMainActivity" />
+        <activity android:name=".layout.library.jetpack.CameraXActivity" />
+        <activity android:name=".layout.library.jetpack.FingerBiometricActivity" />
+        <activity android:name=".layout.library.jetpack.DataStoreActivity" />
+        <activity android:name=".layout.library.jetpack.LifeCycleActivity" />
+        <activity android:name=".layout.library.jetpack.LiveDataAndDataBindingActivity" />
+        <activity android:name=".layout.library.jetpack.ThreadActivity" />
+        <activity android:name=".layout.library.jetpack.ViewBindingActivity" />
         <activity android:name=".layout.library.RxJavaActivity" />
         <activity android:name=".layout.library.RetrofitActivity" />
         <activity android:name=".layout.library.DaggerActivity" />
+        <activity android:name=".layout.media.StorageAndMediaActivity" />
+        <activity android:name=".layout.media.VideoPlayerActivity" />
 
         <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
+        android:name="androidx.core.content.FileProvider"
+        android:authorities="${applicationId}.fileprovider"
+        android:exported="false"
+        android:grantUriPermissions="true">
             <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
+            android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_provider_path" />
         </provider>
     </application>

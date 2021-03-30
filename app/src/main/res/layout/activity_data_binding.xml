@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.jjim4963tw.library.layout.jetpack.LiveDataAndDataBindingViewModel" />
+            type="com.jjim4963tw.library.layout.library.jetpack.LiveDataAndDataBindingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
