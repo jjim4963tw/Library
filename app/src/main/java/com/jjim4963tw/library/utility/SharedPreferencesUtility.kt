@@ -25,18 +25,25 @@ object SharedPreferencesUtility {
     fun setValue(context: Context, map: HashMap<String, Any>) {
          getPreferences(context).edit(commit = true) {
             map.keys.forEach {
-                if (map[it] is String) {
-                    this.putString(it, map[it] as String)
-                } else if (map[it] is Int) {
-                    this.putInt(it, map[it] as Int)
-                } else if (map[it] is Long) {
-                    this.putLong(it, map[it] as Long)
-                } else if (map[it] is Float) {
-                    this.putFloat(it, map[it] as Float)
-                } else if (map[it] is Boolean) {
-                    this.putBoolean(it, map[it] as Boolean)
-                } else {
-                    this.putString(it, map[it] as String)
+                when {
+                    map[it] is String -> {
+                        this.putString(it, map[it] as String)
+                    }
+                    map[it] is Int -> {
+                        this.putInt(it, map[it] as Int)
+                    }
+                    map[it] is Long -> {
+                        this.putLong(it, map[it] as Long)
+                    }
+                    map[it] is Float -> {
+                        this.putFloat(it, map[it] as Float)
+                    }
+                    map[it] is Boolean -> {
+                        this.putBoolean(it, map[it] as Boolean)
+                    }
+                    else -> {
+                        this.putString(it, map[it] as String)
+                    }
                 }
             }
         }

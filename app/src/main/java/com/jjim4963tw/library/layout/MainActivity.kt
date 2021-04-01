@@ -27,22 +27,6 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         checkUpdateFunction()
-
-        val spinner = Spinner(this)
-        ArrayAdapter(this, R.layout.activity_recycler_view, arrayOf("", "")).apply {
-            setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
-        }.run {
-            spinner.adapter = this
-        }
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
-        }
     }
 
     private fun checkUpdateFunction() {
