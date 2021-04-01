@@ -1,4 +1,4 @@
-package com.jjim4963tw.library.layout.utility
+package com.jjim4963tw.library.utility
 
 import android.content.Context
 import android.content.SharedPreferences
