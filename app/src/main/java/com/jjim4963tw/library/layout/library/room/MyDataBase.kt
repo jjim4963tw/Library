@@ -16,7 +16,7 @@ abstract class MyDataBase : RoomDatabase() {
         private var DB_NAME = "my_database"
 
         
-        val MIGRATION_1_2 = object : Migration(1, 2) {
+        private val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("ALTER TABLE user_info ADD COLUMN address TEXT")
             }

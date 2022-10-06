@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jjim4963tw.library">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -17,34 +16,62 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".layout.MainActivity">
+        <activity
+            android:name=".layout.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".layout.library.jetpack.JetPackMainActivity" />
-        <activity android:name=".layout.library.jetpack.CameraXActivity" />
-        <activity android:name=".layout.library.jetpack.FingerBiometricActivity" />
-        <activity android:name=".layout.library.jetpack.DataStoreActivity" />
-        <activity android:name=".layout.library.jetpack.LifeCycleActivity" />
-        <activity android:name=".layout.library.jetpack.LiveDataAndDataBindingActivity" />
-        <activity android:name=".layout.library.jetpack.ThreadActivity" />
-        <activity android:name=".layout.library.jetpack.ViewBindingActivity" />
-        <activity android:name=".layout.library.RxJavaActivity" />
-        <activity android:name=".layout.library.RetrofitActivity" />
-        <activity android:name=".layout.library.DaggerActivity" />
-        <activity android:name=".layout.media.StorageAndMediaActivity" />
-        <activity android:name=".layout.media.VideoPlayerActivity" />
+        <activity
+            android:name=".layout.library.jetpack.JetPackMainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".layout.library.jetpack.CameraXActivity"
+            android:exported="true" />
+        <activity
+            android:name=".layout.library.jetpack.FingerBiometricActivity"
+            android:exported="true" />
+        <activity
+            android:name=".layout.library.jetpack.DataStoreActivity"
+            android:exported="true" />
+        <activity
+            android:name=".layout.library.jetpack.LifeCycleActivity"
+            android:exported="true" />
+        <activity
+            android:name=".layout.library.jetpack.LiveDataAndDataBindingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".layout.library.jetpack.ThreadActivity"
+            android:exported="true" />
+        <activity
+            android:name=".layout.library.jetpack.ViewBindingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".layout.library.RxJavaActivity"
+            android:exported="true" />
+        <activity
+            android:name=".layout.library.RetrofitActivity"
+            android:exported="true" />
+        <activity
+            android:name=".layout.library.DaggerActivity"
+            android:exported="true" />
+        <activity
+            android:name=".layout.media.StorageAndMediaActivity"
+            android:exported="true" />
+        <activity
+            android:name=".layout.media.VideoPlayerActivity"
+            android:exported="true" />
 
         <provider
-        android:name="androidx.core.content.FileProvider"
-        android:authorities="${applicationId}.fileprovider"
-        android:exported="false"
-        android:grantUriPermissions="true">
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
-            android:name="android.support.FILE_PROVIDER_PATHS"
+                android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_provider_path" />
         </provider>
     </application>
