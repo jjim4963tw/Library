@@ -58,8 +58,7 @@ abstract class BaseAsyncTask<Input, Output>(private val context: Context, privat
     }
 
     private fun initProgressDialog() {
-        progressDialog = AlertDialog.Builder(context)
-            .setView(R.layout.progressbar_vertical_layout)
+        progressDialog = AlertDialog.Builder(context).setView(R.layout.progressbar_vertical_layout)
             .setCancelable(false).create()
     }
 }

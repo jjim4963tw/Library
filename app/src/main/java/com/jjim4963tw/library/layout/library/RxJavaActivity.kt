@@ -28,15 +28,15 @@ class RxJavaActivity : AppCompatActivity() {
         compositeDisposable.dispose()
 
         val observer = object : Observer<String> {
-            override fun onSubscribe(d: Disposable?) {
+            override fun onSubscribe(d: Disposable) {
                 disposable = d
             }
 
-            override fun onNext(t: String?) {
+            override fun onError(e: Throwable) {
                 TODO("Not yet implemented")
             }
 
-            override fun onError(e: Throwable?) {
+            override fun onNext(t: String) {
                 TODO("Not yet implemented")
             }
 
@@ -108,6 +108,4 @@ class RxJavaActivity : AppCompatActivity() {
                     // do error handle
                 }
     }
-
-
 }

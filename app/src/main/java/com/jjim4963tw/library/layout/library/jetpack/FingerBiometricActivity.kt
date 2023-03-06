@@ -7,7 +7,10 @@ import android.os.CancellationSignal
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 
 class FingerBiometricActivity: AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.Q)
@@ -33,72 +36,28 @@ class FingerBiometricActivity: AppCompatActivity() {
     }
 
     private fun canAuthenticateWithBiometrics(): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            this.getSystemService(android.hardware.biometrics.BiometricManager::class.java)?.let {
-                return availableCodes.contains(it.canAuthenticate(BIOMETRIC_STRONG or BIOMETRIC_WEAK))
-            } ?: false
+        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            val fingerprintManagerCompat = FingerprintManagerCompat.from(this)
+            fingerprintManagerCompat.hasEnrolledFingerprints() && fingerprintManagerCompat.isHardwareDetected
         } else {
-            androidx.biometric.BiometricManager.from(this).let {
-                it.canAuthenticate() == androidx.biometric.BiometricManager.BIOMETRIC_SUCCESS
+            BiometricManager.from(this).let {
+                return availableCodes.contains(it.canAuthenticate(
+                    BiometricManager.Authenticators.BIOMETRIC_STRONG or
+                            BiometricManager.Authenticators.BIOMETRIC_WEAK or
+                            BiometricManager.Authenticators.DEVICE_CREDENTIAL)
+                )
             }
         }
     }
 
     private fun showBiometricPrompt() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            showBiometricPromptOfUpperAndroidP()
-        } else {
-            showBiometricPromptOfLowerAndroidP()
-        }
-    }
+        val promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle("指紋驗證")
+            .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.BIOMETRIC_WEAK or BiometricManager.Authenticators.DEVICE_CREDENTIAL)
+            .setDescription("描述")
+            .build()
 
-    @RequiresApi(Build.VERSION_CODES.P)
-    private fun showBiometricPromptOfUpperAndroidP() {
-        val biometricPrompt = android.hardware.biometrics.BiometricPrompt.Builder(this).apply {
-            this.setTitle("指紋驗證")
-            this.setDescription("描述")
-            this.setNegativeButton("取消", mainExecutor, { _, _ -> Toast.makeText(this@FingerBiometricActivity, "Cancel", Toast.LENGTH_LONG).show() })
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                this.setAllowedAuthenticators(BIOMETRIC_STRONG or BIOMETRIC_WEAK)
-            }
-        }.build()
-
-        val cancellationSignal = CancellationSignal().apply {
-            this.setOnCancelListener {
-                Toast.makeText(this@FingerBiometricActivity, "Cancel", Toast.LENGTH_LONG).show()
-                finish()
-            }
-        }
-
-        biometricPrompt.authenticate(cancellationSignal, mainExecutor, object : android.hardware.biometrics.BiometricPrompt.AuthenticationCallback() {
-            override fun onAuthenticationError(errorCode: Int, errString: CharSequence?) {
-                super.onAuthenticationError(errorCode, errString)
-
-                Toast.makeText(this@FingerBiometricActivity, "Authentication errorString : $errString", Toast.LENGTH_LONG).show()
-            }
-
-            override fun onAuthenticationSucceeded(result: android.hardware.biometrics.BiometricPrompt.AuthenticationResult?) {
-                super.onAuthenticationSucceeded(result)
-
-                Toast.makeText(this@FingerBiometricActivity, "Success", Toast.LENGTH_LONG).show()
-            }
-
-            override fun onAuthenticationFailed() {
-                super.onAuthenticationFailed()
-
-                Toast.makeText(this@FingerBiometricActivity, "Authentication failed for an unknown reason", Toast.LENGTH_LONG).show()
-            }
-        })
-    }
-
-    private fun showBiometricPromptOfLowerAndroidP() {
-        val promptInfo = androidx.biometric.BiometricPrompt.PromptInfo.Builder()
-                .setTitle("指紋驗證")
-                .setDescription("描述")
-                .setDeviceCredentialAllowed(true)
-                .build()
-
-        androidx.biometric.BiometricPrompt(this, ContextCompat.getMainExecutor(this), object : androidx.biometric.BiometricPrompt.AuthenticationCallback() {
+        BiometricPrompt(this, ContextCompat.getMainExecutor(this), object : BiometricPrompt.AuthenticationCallback() {
             override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                 super.onAuthenticationError(errorCode, errString)
 
