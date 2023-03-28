@@ -23,9 +23,11 @@ abstract class MyDataBase : RoomDatabase() {
         }
 
         fun getInstance(context: Context): MyDataBase {
-            return instance ?: Room.databaseBuilder(context, MyDataBase::class.java, DB_NAME)
+            return instance ?: synchronized(MyDataBase::class) {
+                Room.databaseBuilder(context, MyDataBase::class.java, DB_NAME)
                     .addMigrations(MIGRATION_1_2)
                     .build().also { instance = it }
+            }
         }
     }
 
