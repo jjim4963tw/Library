@@ -53,6 +53,9 @@
             android:name=".layout.library.RxJavaActivity"
             android:exported="true" />
         <activity
+            android:name=".layout.library.SQLiteActivity"
+            android:exported="true" />
+        <activity
             android:name=".layout.library.RetrofitActivity"
             android:exported="true" />
         <activity
