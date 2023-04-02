@@ -1,8 +1,8 @@
-package com.jjim4963tw.library.layout.library.sqlite.sqliteopenhelper.helper
+package com.jjim4963tw.library.sqlite.sqliteopenhelper.helper
 
 import android.database.Cursor
 import androidx.core.content.contentValuesOf
-import com.jjim4963tw.library.layout.library.sqlite.sqliteopenhelper.entity.UserInfo
+import com.jjim4963tw.library.sqlite.sqliteopenhelper.entity.UserInfo
 
 class UserInfoAdapter: BaseDBAdapter() {
     companion object {

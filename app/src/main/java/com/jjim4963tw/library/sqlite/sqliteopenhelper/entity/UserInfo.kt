@@ -1,4 +1,4 @@
-package com.jjim4963tw.library.layout.library.sqlite.sqliteopenhelper.entity
+package com.jjim4963tw.library.sqlite.sqliteopenhelper.entity
 
 data class UserInfo (
     val name: String,

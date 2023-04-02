@@ -1,10 +1,10 @@
-package com.jjim4963tw.library.layout.library.sqlite.sqliteopenhelper.helper
+package com.jjim4963tw.library.sqlite.sqliteopenhelper.helper
 
 import android.database.sqlite.SQLiteDatabase
 import com.jjim4963tw.library.Library
-import com.jjim4963tw.library.layout.library.sqlite.sqliteopenhelper.MyDatabaseOpenHelper
+import com.jjim4963tw.library.sqlite.sqliteopenhelper.MyDatabaseOpenHelper
 
-open class BaseDBAdapter {
+open class BaseDBAdapter() {
     var database: MyDatabaseOpenHelper = MyDatabaseOpenHelper
 
     var db: SQLiteDatabase? = null

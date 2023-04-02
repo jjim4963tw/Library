@@ -8,10 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.jjim4963tw.library.R
-import com.jjim4963tw.library.layout.library.sqlite.room.entity.UserEntity
-import com.jjim4963tw.library.layout.library.sqlite.room.helper.UserHelper
-import com.jjim4963tw.library.layout.library.sqlite.sqliteopenhelper.entity.UserInfo
-import com.jjim4963tw.library.layout.library.sqlite.sqliteopenhelper.helper.UserInfoHelper
+import com.jjim4963tw.library.sqlite.room.entity.UserEntity
+import com.jjim4963tw.library.sqlite.room.helper.UserHelper
+import com.jjim4963tw.library.sqlite.sqliteopenhelper.entity.UserInfo
+import com.jjim4963tw.library.sqlite.sqliteopenhelper.helper.UserInfoHelper
 import kotlinx.coroutines.launch
 
 class SQLiteActivity : AppCompatActivity() {

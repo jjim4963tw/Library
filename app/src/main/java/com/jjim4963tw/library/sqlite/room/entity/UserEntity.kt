@@ -1,4 +1,4 @@
-package com.jjim4963tw.library.layout.library.sqlite.room.entity
+package com.jjim4963tw.library.sqlite.room.entity
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow

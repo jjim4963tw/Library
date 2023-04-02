@@ -1,4 +1,4 @@
-package com.jjim4963tw.library.layout.library.sqlite.sqliteopenhelper
+package com.jjim4963tw.library.sqlite.sqliteopenhelper
 
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper

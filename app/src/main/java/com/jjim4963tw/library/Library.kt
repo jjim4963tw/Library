@@ -2,7 +2,7 @@ package com.jjim4963tw.library
 
 import android.content.pm.ApplicationInfo
 import androidx.multidex.MultiDexApplication
-import com.jjim4963tw.library.layout.library.sqlite.sqliteopenhelper.MyDatabaseOpenHelper
+import com.jjim4963tw.library.sqlite.sqliteopenhelper.MyDatabaseOpenHelper
 import java.util.concurrent.atomic.AtomicInteger
 
 class Library : MultiDexApplication() {
