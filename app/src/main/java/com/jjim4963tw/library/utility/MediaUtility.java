@@ -27,34 +27,8 @@ public class MediaUtility {
 
     public static Uri mediaPathUri;
 
-    public static void requestCamera(Activity activity) {
-        Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // 判断是否有相机
-        if (captureIntent.resolveActivity(activity.getPackageManager()) != null) {
-            Uri photoUri = getStorageMediaPath(activity, REQUEST_CAMERA_CODE);
-            if (photoUri != null) {
-                captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-                captureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                activity.startActivityForResult(captureIntent, REQUEST_CAMERA_CODE);
-            }
-        }
-    }
-
-    public static void requestVideo(Activity activity) {
-        Intent captureIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-        // 判断是否有相机
-        if (captureIntent.resolveActivity(activity.getPackageManager()) != null) {
-            Uri photoUri = getStorageMediaPath(activity, REQUEST_VIDEO_CODE);
-            if (photoUri != null) {
-                captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-                captureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                activity.startActivityForResult(captureIntent, REQUEST_VIDEO_CODE);
-            }
-        }
-    }
-
     // used MediaStore to create media file
-    private static Uri getStorageMediaPath(Activity activity, int type) {
+    public static Uri getStorageMediaPath(Activity activity, int type) {
         File mediaFile;
         Uri mediaUri = null;
 
@@ -114,12 +88,7 @@ public class MediaUtility {
 
     // Storage Access Framework
     public static void selectStorageFilePath(Activity activity) {
-        Intent intent = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        } else {
-            intent = new Intent(Intent.ACTION_GET_CONTENT);
-        }
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("*/*");
         activity.startActivityForResult(intent, REQUEST_FILE_CODE);
@@ -127,15 +96,10 @@ public class MediaUtility {
 
     // Storage Access Framework
     public static void selectStorageFolderPath(Activity activity) {
-        Intent intent = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        } else {
-            intent = new Intent(Intent.ACTION_GET_CONTENT);
-        }
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         activity.startActivityForResult(intent, REQUEST_FOLDER_CODE);
     }
 }
