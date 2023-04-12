@@ -5,8 +5,8 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.jjim4963tw.library.utility.DataStoreUtility
-import com.jjim4963tw.library.utility.DataStoreUtility.dataStore
+import com.jjim4963tw.library.utility.jetpack.DataStoreUtility
+import com.jjim4963tw.library.utility.jetpack.DataStoreUtility.dataStore
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking

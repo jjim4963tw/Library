@@ -1,4 +1,4 @@
-package com.jjim4963tw.library.utility
+package com.jjim4963tw.library.manager
 
 import android.app.Activity
 import android.content.Context
@@ -6,15 +6,16 @@ import android.text.TextUtils
 import android.util.Base64
 import android.util.Log
 import com.android.billingclient.api.*
+import com.jjim4963tw.library.utility.AccessLogUtility
 import java.security.*
 import java.security.spec.InvalidKeySpecException
 import java.security.spec.X509EncodedKeySpec
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
-class InAppBillingUtility(val context: Context) {
+class InAppBillingManager(val context: Context) {
     companion object {
-        val TAG: String? = InAppBillingUtility::class.simpleName
+        val TAG: String? = InAppBillingManager::class.simpleName
         const val BASE_64_ENCODED_PUBLIC_KEY = ""
     }
 
@@ -60,7 +61,7 @@ class InAppBillingUtility(val context: Context) {
                 override fun onBillingSetupFinished(billingResult: BillingResult) {
                     val connectionStatus = billingResult.responseCode
 
-                    AccessLogUtility.showInfoMessage(false, TAG, "[INFO | ${TAG}.startConnection] connection google play billing service status : $connectionStatus", null)
+                    AccessLogUtility.showInfoMessage(false, TAG, "[INFO | $TAG.startConnection] connection google play billing service status : $connectionStatus", null)
 
                     if (connectionStatus == BillingClient.BillingResponseCode.OK) {
                         getHistoryPurchasedList()
@@ -69,7 +70,7 @@ class InAppBillingUtility(val context: Context) {
                 }
 
                 override fun onBillingServiceDisconnected() {
-                    AccessLogUtility.showErrorMessage(false, TAG, "[ERROR | ${TAG}.startConnection] disconnection google play billing", null)
+                    AccessLogUtility.showErrorMessage(false, TAG, "[ERROR | $TAG.startConnection] disconnection google play billing", null)
                 }
             })
         }
@@ -147,7 +148,7 @@ class InAppBillingUtility(val context: Context) {
         }
 
         billingClient.queryProductDetailsAsync(params.build()) { result, skuDetails ->
-            AccessLogUtility.showInfoMessage(false, TAG, "[INFO | ${TAG}.querySkuDetailsAsync] query products details : ${result.responseCode}", null)
+            AccessLogUtility.showInfoMessage(false, TAG, "[INFO | $TAG.querySkuDetailsAsync] query products details : ${result.responseCode}", null)
 
             when (result.responseCode) {
                 BillingClient.BillingResponseCode.OK -> {
@@ -162,7 +163,7 @@ class InAppBillingUtility(val context: Context) {
                 }
                 else -> {
                     iabHelperListener.onPurchaseError(result.responseCode)
-                    AccessLogUtility.showErrorMessage(false, TAG, "[ERROR | ${TAG}.querySkuDetailsAsync] ${result.debugMessage}", null)
+                    AccessLogUtility.showErrorMessage(false, TAG, "[ERROR | $TAG.querySkuDetailsAsync] ${result.debugMessage}", null)
                 }
             }
         }
@@ -195,9 +196,9 @@ class InAppBillingUtility(val context: Context) {
         if (status == BillingClient.BillingResponseCode.OK && purchases != null) {
             iabHelperListener.onPurchaseVerify(purchases)
         } else if (status == BillingClient.BillingResponseCode.USER_CANCELED) {
-            AccessLogUtility.showErrorMessage(false, TAG, "[ERROR | ${TAG}.purchasesUpdatedListener] user cancel purchase", null)
+            AccessLogUtility.showErrorMessage(false, TAG, "[ERROR | $TAG.purchasesUpdatedListener] user cancel purchase", null)
         } else if (status == BillingClient.BillingResponseCode.SERVICE_DISCONNECTED) {
-            AccessLogUtility.showErrorMessage(false, TAG, "[ERROR | ${TAG}.purchasesUpdatedListener] service disconnected", null)
+            AccessLogUtility.showErrorMessage(false, TAG, "[ERROR | $TAG.purchasesUpdatedListener] service disconnected", null)
             startConnection()
         } else {
             iabHelperListener.onPurchaseError(status)
@@ -212,7 +213,7 @@ class InAppBillingUtility(val context: Context) {
                 val acknowledgePurchaseParams = AcknowledgePurchaseParams.newBuilder()
                     .setPurchaseToken(purchase.purchaseToken).build()
                 billingClient.acknowledgePurchase(acknowledgePurchaseParams) { billingResult ->
-                    AccessLogUtility.showInfoMessage(false, TAG, "[INFO | ${TAG}.acknowledgePurchase] purchase acknowledged", null)
+                    AccessLogUtility.showInfoMessage(false, TAG, "[INFO | $TAG.acknowledgePurchase] purchase acknowledged", null)
                     if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                         iabHelperListener.onPurchaseCompleted(billingResult, null)
                     }
@@ -236,7 +237,7 @@ class InAppBillingUtility(val context: Context) {
                         iabHelperListener.onPurchaseCompleted(billingResult, outToken)
                     }
 
-                    AccessLogUtility.showInfoMessage(false, TAG, "[INFO | ${TAG}.acknowledgePurchase] billingResult : " + billingResult.responseCode + "outToken : " + outToken, null)
+                    AccessLogUtility.showInfoMessage(false, TAG, "[INFO | $TAG.acknowledgePurchase] billingResult : " + billingResult.responseCode + "outToken : " + outToken, null)
                 }
             } else {
                 // status 10 is signature invalid
@@ -261,7 +262,7 @@ class InAppBillingUtility(val context: Context) {
      */
     private fun verifyPurchase(base64PublicKey: String, jsonData: String, signature: String): Boolean {
         if (TextUtils.isEmpty(jsonData) || TextUtils.isEmpty(base64PublicKey)) {
-            AccessLogUtility.showErrorMessage(false, TAG, "[ERROR | ${TAG}.verifyPurchase] purchase verification failed: missing data. ", null)
+            AccessLogUtility.showErrorMessage(false, TAG, "[ERROR | $TAG.verifyPurchase] purchase verification failed: missing data. ", null)
             return false
         }
 
@@ -313,13 +314,13 @@ class InAppBillingUtility(val context: Context) {
                 true
             }
         } catch (e: IllegalArgumentException) {
-            AccessLogUtility.showErrorMessage(false, TAG, "[ERROR | ${TAG}.verify] Base64 decoding failed. ", null)
+            AccessLogUtility.showErrorMessage(false, TAG, "[ERROR | $TAG.verify] Base64 decoding failed. ", null)
         } catch (e: NoSuchAlgorithmException) {
-            AccessLogUtility.showErrorMessage(false, TAG, "[ERROR | ${TAG}.verify] No Such Algorithm Exception. ", null)
+            AccessLogUtility.showErrorMessage(false, TAG, "[ERROR | $TAG.verify] No Such Algorithm Exception. ", null)
         } catch (e: InvalidKeySpecException) {
-            AccessLogUtility.showErrorMessage(false, TAG, "[ERROR | ${TAG}.verify] Invalid KeySpec Exception. ", null)
+            AccessLogUtility.showErrorMessage(false, TAG, "[ERROR | $TAG.verify] Invalid KeySpec Exception. ", null)
         } catch (e: SignatureException) {
-            AccessLogUtility.showErrorMessage(false, TAG, "[ERROR | ${TAG}.verify] Signature exception. ", null)
+            AccessLogUtility.showErrorMessage(false, TAG, "[ERROR | $TAG.verify] Signature exception. ", null)
         }
         return false
     }

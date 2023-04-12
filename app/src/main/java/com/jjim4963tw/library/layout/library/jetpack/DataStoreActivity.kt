@@ -3,15 +3,12 @@ package com.jjim4963tw.library.layout.library.jetpack
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.datastore.preferences.core.*
 import androidx.lifecycle.lifecycleScope
 import com.jjim4963tw.library.R
-import com.jjim4963tw.library.utility.DataStoreUtility
-import com.jjim4963tw.library.utility.DataStoreUtility.dataStore
-import kotlinx.coroutines.flow.*
+import com.jjim4963tw.library.utility.jetpack.DataStoreUtility
+import com.jjim4963tw.library.utility.jetpack.DataStoreUtility.dataStore
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import java.io.IOException
 
 
 class DataStoreActivity : AppCompatActivity() {

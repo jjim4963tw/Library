@@ -1,9 +1,7 @@
 package com.jjim4963tw.library.layout.library.jetpack
 
-import android.hardware.biometrics.BiometricManager.Authenticators.*
 import android.os.Build
 import android.os.Bundle
-import android.os.CancellationSignal
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -15,8 +13,8 @@ import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 class FingerBiometricActivity: AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.Q)
     private val availableCodes = listOf(
-            android.hardware.biometrics.BiometricManager.BIOMETRIC_SUCCESS,
-            android.hardware.biometrics.BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED
+            BiometricManager.BIOMETRIC_SUCCESS,
+            BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED
     )
 
     companion object {
@@ -36,10 +34,7 @@ class FingerBiometricActivity: AppCompatActivity() {
     }
 
     private fun canAuthenticateWithBiometrics(): Boolean {
-        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            val fingerprintManagerCompat = FingerprintManagerCompat.from(this)
-            fingerprintManagerCompat.hasEnrolledFingerprints() && fingerprintManagerCompat.isHardwareDetected
-        } else {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             BiometricManager.from(this).let {
                 return availableCodes.contains(it.canAuthenticate(
                     BiometricManager.Authenticators.BIOMETRIC_STRONG or
@@ -47,6 +42,9 @@ class FingerBiometricActivity: AppCompatActivity() {
                             BiometricManager.Authenticators.DEVICE_CREDENTIAL)
                 )
             }
+        } else {
+            val fingerprintManagerCompat = FingerprintManagerCompat.from(this)
+            fingerprintManagerCompat.hasEnrolledFingerprints() && fingerprintManagerCompat.isHardwareDetected
         }
     }
 
@@ -64,7 +62,7 @@ class FingerBiometricActivity: AppCompatActivity() {
                 Toast.makeText(this@FingerBiometricActivity, "Authentication errorString : $errString", Toast.LENGTH_LONG).show()
             }
 
-            override fun onAuthenticationSucceeded(result: androidx.biometric.BiometricPrompt.AuthenticationResult) {
+            override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                 super.onAuthenticationSucceeded(result)
 
                 Toast.makeText(this@FingerBiometricActivity, "Success", Toast.LENGTH_LONG).show()
