@@ -1,7 +1,6 @@
 package com.jjim4963tw.library.layout.media;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,24 +8,24 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.DocumentsContract;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.jjim4963tw.library.R;
 import com.jjim4963tw.library.manager.CameraManager;
+import com.jjim4963tw.library.manager.DocumentManager;
 import com.jjim4963tw.library.manager.PermissionManager;
 import com.jjim4963tw.library.utility.MediaUtility;
 import com.jjim4963tw.library.utility.StorageUtility;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class StorageAndMediaActivity extends AppCompatActivity {
     private final PermissionManager permissionManager = new PermissionManager(this);
     private final CameraManager cameraManager = new CameraManager(this);
+    private final DocumentManager documentManager = new DocumentManager(this);
 
     private TextView textView;
     private ImageView imageView;
@@ -52,25 +51,36 @@ public class StorageAndMediaActivity extends AppCompatActivity {
 
     //region Storage function
     private void showStorageIndex() {
-        permissionManager.requestPermission(PermissionManager.Companion.getMediaStoragePermission(), new PermissionManager.PermissionRequestListener() {
-            @Override
-            public void requestSuccess() {
-                String text = String.format("getExternalCacheDir : %s \r\n getExternalDataDir (Null) : %s \r\n" +
-                                "getInternalCacheDir : %s",
-                        StorageUtility.getExternalCacheDir(StorageAndMediaActivity.this),
-                        StorageUtility.getExternalFileDir(StorageAndMediaActivity.this, null),
-                        StorageUtility.getInternalCacheDir(StorageAndMediaActivity.this)
-                );
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            String text = String.format("getExternalCacheDir : %s \r\n getExternalDataDir (Null) : %s \r\n" +
+                            "getInternalCacheDir : %s",
+                    StorageUtility.getExternalCacheDir(StorageAndMediaActivity.this),
+                    StorageUtility.getExternalFileDir(StorageAndMediaActivity.this, null),
+                    StorageUtility.getInternalCacheDir(StorageAndMediaActivity.this)
+            );
 
-                textView.setText(text);
-            }
+            textView.setText(text);
+        } else {
+            permissionManager.requestPermission(PermissionManager.Companion.getOldStoragePermission(), new PermissionManager.PermissionRequestListener() {
+                @Override
+                public void requestSuccess() {
+                    String text = String.format("getExternalCacheDir : %s \r\n getExternalDataDir (Null) : %s \r\n" +
+                                    "getInternalCacheDir : %s",
+                            StorageUtility.getExternalCacheDir(StorageAndMediaActivity.this),
+                            StorageUtility.getExternalFileDir(StorageAndMediaActivity.this, null),
+                            StorageUtility.getInternalCacheDir(StorageAndMediaActivity.this)
+                    );
 
-            @Override
-            public void requestFail(@NonNull ArrayList<String> deniedPermissions) {
-                Snackbar.make(findViewById(R.id.textView), "This is explanation: Please give us permission", Snackbar.LENGTH_LONG)
-                        .setAction("OK", view -> permissionManager.goAppSettingsPage()).show();
-            }
-        });
+                    textView.setText(text);
+                }
+
+                @Override
+                public void requestFail(@NonNull ArrayList<String> deniedPermissions) {
+                    Snackbar.make(findViewById(R.id.textView), "This is explanation: Please give us permission", Snackbar.LENGTH_LONG)
+                            .setAction("OK", view -> permissionManager.goAppSettingsPage()).show();
+                }
+            });
+        }
     }
     //endregion
 
@@ -126,33 +136,37 @@ public class StorageAndMediaActivity extends AppCompatActivity {
 
     private void usedSAFSelectItem(int type) {
         if (type == 0) {
-            MediaUtility.selectStorageFilePath(this);
-        } else if (type == 1) {
-            MediaUtility.selectStorageFolderPath(this);
-        }
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK) {
-            if (requestCode == MediaUtility.REQUEST_FILE_CODE || requestCode == MediaUtility.REQUEST_FOLDER_CODE) {
-                Uri uri = data.getData();
-
-                if (uri != null) {
-                    getContentResolver().takePersistableUriPermission(uri, data.getFlags() & (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION));
-                    if (requestCode == MediaUtility.REQUEST_FOLDER_CODE) {
-                        uri = DocumentsContract.buildDocumentUriUsingTree(uri, DocumentsContract.getTreeDocumentId(uri));
-                    }
-                    Log.e("uri", uri.toString());
-
+            documentManager.requestDocument(new String[]{"*/*"}, new DocumentManager.DocumentRequestListener() {
+                @Override
+                public void requestSuccess(@NonNull List<? extends Uri> uris) {
+                    Uri uri = uris.get(0);
+                    // 應用程式「採用」系統提供的永久 URI 權限
+                    getContentResolver().takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     textView.setText(uri.toString());
                 }
-            }
-        } else {
-            Toast.makeText(this, "取消", Toast.LENGTH_LONG).show();
+
+                @Override
+                public void requestFail() {
+                    Snackbar.make(findViewById(R.id.textView), "get File URI Error", Snackbar.LENGTH_LONG)
+                            .setAction("OK", null).show();
+                }
+            });
+        } else if (type == 1) {
+            documentManager.requestDocumentTree(new DocumentManager.DocumentRequestListener() {
+                @Override
+                public void requestSuccess(@NonNull List<? extends Uri> uris) {
+                    Uri uri = uris.get(0);
+                    // 應用程式「採用」系統提供的永久 URI 權限
+                    getContentResolver().takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    textView.setText(uri.toString());
+                }
+
+                @Override
+                public void requestFail() {
+                    Snackbar.make(findViewById(R.id.textView), "get Folder URI Error", Snackbar.LENGTH_LONG)
+                            .setAction("OK", null).show();
+                }
+            });
         }
     }
 }

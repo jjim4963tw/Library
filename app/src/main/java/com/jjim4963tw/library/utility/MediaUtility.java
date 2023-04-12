@@ -33,7 +33,7 @@ public class MediaUtility {
         Uri mediaUri = null;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            // 适配android 10
+            // 適配 Android 10
             mediaPathUri = mediaUri = createMediaUri(activity, type);
         } else {
             mediaFile = createMediaFile(activity);
@@ -84,22 +84,5 @@ public class MediaUtility {
             return null;
         }
         return tempFile;
-    }
-
-    // Storage Access Framework
-    public static void selectStorageFilePath(Activity activity) {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("*/*");
-        activity.startActivityForResult(intent, REQUEST_FILE_CODE);
-    }
-
-    // Storage Access Framework
-    public static void selectStorageFolderPath(Activity activity) {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        activity.startActivityForResult(intent, REQUEST_FOLDER_CODE);
     }
 }
