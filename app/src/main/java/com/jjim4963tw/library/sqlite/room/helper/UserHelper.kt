@@ -1,11 +1,11 @@
-package com.jjim4963tw.library.layout.library.room.helper
+package com.jjim4963tw.library.sqlite.room.helper
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.jjim4963tw.library.layout.library.room.MyDataBase
-import com.jjim4963tw.library.layout.library.room.entity.UserEntity
+import com.jjim4963tw.library.sqlite.room.MyDataBase
+import com.jjim4963tw.library.sqlite.room.entity.UserEntity
 import kotlinx.coroutines.launch
 
 class UserHelper(context: Context): ViewModel() {

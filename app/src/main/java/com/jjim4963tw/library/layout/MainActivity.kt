@@ -15,6 +15,7 @@ import com.jjim4963tw.library.layout.library.jetpack.JetPackMainActivity
 import com.jjim4963tw.library.layout.library.DaggerActivity
 import com.jjim4963tw.library.layout.library.RetrofitActivity
 import com.jjim4963tw.library.layout.library.RxJavaActivity
+import com.jjim4963tw.library.layout.library.SQLiteActivity
 import com.jjim4963tw.library.layout.media.StorageAndMediaActivity
 
 class MainActivity : AppCompatActivity() {
@@ -75,6 +76,12 @@ class MainActivity : AppCompatActivity() {
 
     fun openDaggerPage(view: View) {
         Intent(this, DaggerActivity::class.java).run {
+            startActivity(this)
+        }
+    }
+
+    fun openSQLitePage(view: View) {
+        Intent(this, SQLiteActivity::class.java).run {
             startActivity(this)
         }
     }

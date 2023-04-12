@@ -1,4 +1,4 @@
-package com.jjim4963tw.library.layout.library.room.entity
+package com.jjim4963tw.library.sqlite.room.entity
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
@@ -10,12 +10,12 @@ import kotlinx.coroutines.flow.Flow
  */
 @Entity(tableName = "user_info")
 data class UserEntity(
-        @ColumnInfo(name = "username")
-        val name: String,
-        val age: Int,
-        val address: String?,
-        @PrimaryKey(autoGenerate = true)
-        val id: Int = 0,
+    @ColumnInfo(name = "username")
+    val name: String?,
+    val age: Int?,
+    val address: String?,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int? = null,
 )
 
 /**
