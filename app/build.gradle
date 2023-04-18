@@ -15,6 +15,15 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.current()
+        targetCompatibility JavaVersion.current()
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.current()
+    }
+
     buildFeatures {
         dataBinding true
         viewBinding true
