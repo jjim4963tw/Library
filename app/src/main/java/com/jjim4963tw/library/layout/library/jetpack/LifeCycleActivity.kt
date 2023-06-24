@@ -7,7 +7,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import com.jjim4963tw.library.R
 
-class LifeCycleActivity: Activity(), LifecycleOwner {
+class LifeCycleActivity(override val lifecycle: Lifecycle) : Activity(), LifecycleOwner {
     private lateinit var lifecycleRegistry: LifecycleRegistry
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +28,4 @@ class LifeCycleActivity: Activity(), LifecycleOwner {
         lifecycleRegistry.currentState = Lifecycle.State.DESTROYED
     }
 
-    override fun getLifecycle(): Lifecycle {
-        return lifecycleRegistry
-    }
 }

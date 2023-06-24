@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModelProvider
 import com.jjim4963tw.library.R
 import com.jjim4963tw.library.databinding.ActivityDataBindingBinding
@@ -41,9 +40,9 @@ class LiveDataAndDataBindingActivity: AppCompatActivity() {
 
 
     val textLiveData = MutableLiveData<String>()
-    val lengthLiveData: LiveData<Int> = Transformations.map(textLiveData) {
-        it.length
-    }
+//    val lengthLiveData: LiveData<Int> = Transformations.map(textLiveData) {
+//        it.length
+//    }
 
 //    val listLiveData: LiveData<Int> = Transformations.switchMap(textLiveData) {
 //        fetch(it)
