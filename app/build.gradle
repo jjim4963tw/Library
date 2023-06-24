@@ -100,8 +100,8 @@ dependencies {
     kapt 'com.google.dagger:dagger-android-processor:2.33'
 
     // In App Billing
-    implementation "com.android.billingclient:billing:5.2.0"
-    implementation "com.android.billingclient:billing-ktx:5.2.0"
+    implementation "com.android.billingclient:billing:6.0.1"
+    implementation "com.android.billingclient:billing-ktx:6.0.1"
 
     implementation 'com.google.android.exoplayer:exoplayer:2.18.7'
     implementation 'com.google.android.material:material:1.9.0'
